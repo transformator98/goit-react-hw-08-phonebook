@@ -10,12 +10,6 @@ const Navigation = () => {
       <NavLink to="/contact" activeClassName={s.activeLink} className={s.link}>
         Contact
       </NavLink>
-      <NavLink to="/register" activeClassName={s.activeLink} className={s.link}>
-        Register
-      </NavLink>
-      <NavLink to="/login" activeClassName={s.activeLink} className={s.link}>
-        Login
-      </NavLink>
     </nav>
   );
 };
