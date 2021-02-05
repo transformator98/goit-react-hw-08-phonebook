@@ -39,7 +39,7 @@ export default function App() {
             <HomeView />
           </Route>
 
-          <Route path="/movies" exact>
+          <Route path="/contact" exact>
             <PhonebookView />
           </Route>
 
