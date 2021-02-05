@@ -1,25 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
-function App() {
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Container from 'component/Container';
+import AppBar from 'component/AppBar';
+import Loader from 'component/Loader';
+import HomeView from 'views/HomeView';
+import NotFoundView from 'views/NotFoundView';
+import PhonebookView from 'views/PhonebookView';
+import SignInView from 'views/SignInView';
+import SignUpView from 'views/SignUpView';
+
+// const HomeView = lazy(() =>
+//   import('views/HomeView' /* webpackChunkName: "HomeView" */),
+// );
+// const PhonebookView = lazy(() =>
+//   import('views/PhonebookView' /* webpackChunkName: "PhonebookView" */),
+// );
+// const SignUpView = lazy(() =>
+//   import('views/SignUpView' /* webpackChunkName: "SignUpView" */),
+// );
+// const SignInView = lazy(() =>
+//   import('views/SignInView' /* webpackChunkName: "SignInView" */),
+// );
+// const NotFoundView = lazy(() =>
+//   import('views/NotFoundView' /* webpackChunkName: "NotFoundView" */),
+// );
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <AppBar />
+      <Suspense fallback={<Loader />}>
+        <Switch>
+          <Route path="/" exact>
+            <HomeView />
+          </Route>
+
+          <Route path="/movies" exact>
+            <PhonebookView />
+          </Route>
+
+          <Route path="/register">
+            <SignUpView />
+          </Route>
+
+          <Route path="/login">
+            <SignInView />
+          </Route>
+
+          <Route>
+            <NotFoundView />
+          </Route>
+        </Switch>
+      </Suspense>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </Container>
   );
 }
-
-export default App;
