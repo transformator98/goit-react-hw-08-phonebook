@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  margin-right: 4px;
+}
+.name {
+  font-weight: 700;
+  margin-right: 12px;
+}
+
+.button {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+.exit {
+  fill: grey;
+}
+.exit:hover,
+.exit:focus {
+  fill: green;
+}

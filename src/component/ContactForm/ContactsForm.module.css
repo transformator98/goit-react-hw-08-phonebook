@@ -3,9 +3,9 @@
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  outline: 1px solid rgba(0, 0, 0, 0.6);
+  /* outline: 1px solid rgba(0, 0, 0, 0.6);
   color: rgb(252, 252, 252);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4); */
 }
 .label {
   width: 400px;

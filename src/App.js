@@ -10,8 +10,8 @@ import Loader from 'component/Loader';
 import HomeView from 'views/HomeView';
 import NotFoundView from 'views/NotFoundView';
 import PhonebookView from 'views/PhonebookView';
-import SignInView from 'views/SignInView';
-import SignUpView from 'views/SignUpView';
+import SignInView from 'views/LoginView';
+import SignUpView from 'views/RegisterView';
 
 // const HomeView = lazy(() =>
 //   import('views/HomeView' /* webpackChunkName: "HomeView" */),
