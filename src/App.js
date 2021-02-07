@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Container from 'component/Container';
 import AppBar from 'component/AppBar';
 import Loader from 'component/Loader';
+import PrivateRoute from 'component/PrivateRoute';
+import PublicRoute from 'component/PublicRoute';
+// import RegisterView from 'views/RegisterView';
 // import HomeView from 'views/HomeView';
 // import NotFoundView from 'views/NotFoundView';
 // import PhonebookView from 'views/PhonebookView';
@@ -21,10 +24,10 @@ const HomeView = lazy(() =>
 const PhonebookView = lazy(() =>
   import('views/PhonebookView' /* webpackChunkName: "PhonebookView" */),
 );
-const SignUpView = lazy(() =>
+const RegisterView = lazy(() =>
   import('views/RegisterView' /* webpackChunkName: "RegisterView" */),
 );
-const SignInView = lazy(() =>
+const LoginView = lazy(() =>
   import('views/LoginView' /* webpackChunkName: "LoginView" */),
 );
 const NotFoundView = lazy(() =>
@@ -43,25 +46,25 @@ export default function App() {
       <AppBar />
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path="/" exact>
+          <PublicRoute path="/" exact>
             <HomeView />
-          </Route>
+          </PublicRoute>
 
-          <Route path="/contact" exact>
+          <PrivateRoute path="/contact" exact>
             <PhonebookView />
-          </Route>
+          </PrivateRoute>
 
-          <Route path="/register">
-            <SignUpView />
-          </Route>
+          <PublicRoute path="/register" restricted>
+            <RegisterView />
+          </PublicRoute>
 
-          <Route path="/login">
-            <SignInView />
-          </Route>
+          <PublicRoute path="/login" restricted>
+            <LoginView />
+          </PublicRoute>
 
-          <Route>
+          <PublicRoute>
             <NotFoundView />
-          </Route>
+          </PublicRoute>
         </Switch>
       </Suspense>
       <ToastContainer

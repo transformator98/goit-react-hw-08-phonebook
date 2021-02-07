@@ -19,7 +19,7 @@ export default function ContactListItem({ id, name, number, onDeleteContact }) {
 }
 
 ContactListItem.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   name: PropTypes.string,
   number: PropTypes.string,
 };
