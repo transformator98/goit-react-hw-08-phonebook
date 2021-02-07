@@ -1,6 +1,11 @@
 import s from './UserMenu.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { authSelectors, authOperations } from '../../redux/auth';
 
 const UserMenu = () => {
+  const dispatch = useDispatch();
+  const name = useSelector(authSelectors.getUserName);
+
   return (
     <div className={s.container}>
       <img
@@ -10,9 +15,13 @@ const UserMenu = () => {
         className={s.avatar}
       />
 
-      <span className={s.name}>Добро пожаловать,</span>
+      <span className={s.name}>Добро пожаловать, {name}!</span>
 
-      <button className={s.button}>
+      <button
+        className={s.button}
+        type="button"
+        onClick={() => dispatch(authOperations.logOut())}
+      >
         <svg
           className={s.exit}
           height="24"
