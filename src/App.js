@@ -9,27 +9,27 @@ import 'react-toastify/dist/ReactToastify.css';
 import Container from 'component/Container';
 import AppBar from 'component/AppBar';
 import Loader from 'component/Loader';
-import HomeView from 'views/HomeView';
-import NotFoundView from 'views/NotFoundView';
-import PhonebookView from 'views/PhonebookView';
-import SignInView from 'views/LoginView';
-import SignUpView from 'views/RegisterView';
+// import HomeView from 'views/HomeView';
+// import NotFoundView from 'views/NotFoundView';
+// import PhonebookView from 'views/PhonebookView';
+// import SignInView from 'views/LoginView';
+// import SignUpView from 'views/RegisterView';
 
-// const HomeView = lazy(() =>
-//   import('views/HomeView' /* webpackChunkName: "HomeView" */),
-// );
-// const PhonebookView = lazy(() =>
-//   import('views/PhonebookView' /* webpackChunkName: "PhonebookView" */),
-// );
-// const SignUpView = lazy(() =>
-//   import('views/SignUpView' /* webpackChunkName: "SignUpView" */),
-// );
-// const SignInView = lazy(() =>
-//   import('views/SignInView' /* webpackChunkName: "SignInView" */),
-// );
-// const NotFoundView = lazy(() =>
-//   import('views/NotFoundView' /* webpackChunkName: "NotFoundView" */),
-// );
+const HomeView = lazy(() =>
+  import('views/HomeView' /* webpackChunkName: "HomeView" */),
+);
+const PhonebookView = lazy(() =>
+  import('views/PhonebookView' /* webpackChunkName: "PhonebookView" */),
+);
+const SignUpView = lazy(() =>
+  import('views/RegisterView' /* webpackChunkName: "RegisterView" */),
+);
+const SignInView = lazy(() =>
+  import('views/LoginView' /* webpackChunkName: "LoginView" */),
+);
+const NotFoundView = lazy(() =>
+  import('views/NotFoundView' /* webpackChunkName: "NotFoundView" */),
+);
 
 export default function App() {
   const dispatch = useDispatch();

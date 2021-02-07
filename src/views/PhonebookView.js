@@ -5,11 +5,12 @@ import ContactList from 'component/ContactList';
 import Loader from 'component/Loader';
 import Container from 'component/Wrapper';
 
-import { getLoading, getError, getItems } from 'redux/phonebook';
+// import { getLoading, getError, getItems } from 'redux/phonebook';
+import { getLoading, getItems } from 'redux/phonebook';
 
 const PhonebookView = () => {
   const loading = useSelector(getLoading);
-  const error = useSelector(getError);
+  // const error = useSelector(getError);
   const visibleFilter = useSelector(getItems);
 
   return (
