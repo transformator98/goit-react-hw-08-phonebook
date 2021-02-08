@@ -17,13 +17,18 @@ const token = {
 
 const register = createAsyncThunk(
   'auth/register',
-  async (options, { rejectWithValue }) => {
+  async (options, thunkAPI) => {
+    const persistedToken = thunkAPI.getState().auth.error;
+
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    }
     try {
       const response = await axios.post('/users/signup', options);
       token.set(response.data.token);
       return response.data;
     } catch (error) {
-      rejectWithValue(error);
+      thunkAPI.rejectWithValue(error);
       if (error.response.status === 400) {
         toast.error('User creation error! Please try again!');
       } else if (error.response.status === 500) {
@@ -61,8 +66,7 @@ const logOut = createAsyncThunk(
 const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
+    const persistedToken = thunkAPI.getState().auth.token;
 
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue();
