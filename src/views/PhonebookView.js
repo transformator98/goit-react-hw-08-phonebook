@@ -5,30 +5,29 @@ import ContactList from 'component/ContactList';
 import Loader from 'component/Loader';
 import Container from 'component/Wrapper';
 
-// import { getLoading, getError, getItems } from 'redux/phonebook';
-import { getLoading, getItems } from 'redux/phonebook';
+import { getLoading, getError, getVisible } from 'redux/phonebook';
+// import { getLoading, getVisible } from 'redux/phonebook';
 
 const PhonebookView = () => {
   const loading = useSelector(getLoading);
-  // const error = useSelector(getError);
-  const visibleFilter = useSelector(getItems);
+  const error = useSelector(getError);
+  const visibleFilter = useSelector(getVisible);
 
   return (
     <div>
-      {/* {error ? (
+      {error ? (
         <h1 className="error">{error.message}</h1>
-      ) : ( */}
-      <Container>
-        <h1>Phonebook</h1>
-        <ContactsForm />
+      ) : (
+        <Container>
+          <h1>Phonebook</h1>
+          <ContactsForm />
 
-        {visibleFilter.length > 1 && <Filter />}
+          {visibleFilter > 1 && <Filter />}
+          {loading && <Loader />}
 
-        {loading && <Loader />}
-
-        <ContactList />
-      </Container>
-      {/* )} */}
+          <ContactList />
+        </Container>
+      )}
     </div>
   );
 };

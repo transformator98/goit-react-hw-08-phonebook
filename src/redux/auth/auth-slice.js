@@ -5,16 +5,26 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  isRefreshUser: false,
+  error: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: {
+    // [authOperations.register.pending](state, { payload }) {
+    //   state.user = payload;
+    //   state.isLoggedIn = true;
+    //   state.isRefreshUser = false;
+    // },
     [authOperations.register.fulfilled](state, { payload }) {
       state.user = payload.user;
       state.token = payload.token;
       state.isLoggedIn = true;
+    },
+    [authOperations.register.rejected](state, { payload }) {
+      state.error = payload;
     },
     [authOperations.logIn.fulfilled](state, { payload }) {
       state.user = payload.user;
@@ -26,9 +36,16 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
+    [authOperations.fetchCurrentUser.pending](state) {
+      state.isRefreshUser = true;
+    },
     [authOperations.fetchCurrentUser.fulfilled](state, { payload }) {
       state.user = payload;
       state.isLoggedIn = true;
+      state.isRefreshUser = false;
+    },
+    [authOperations.fetchCurrentUser.rejected](state) {
+      state.isRefreshUser = false;
     },
   },
 });

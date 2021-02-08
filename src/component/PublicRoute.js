@@ -4,6 +4,7 @@ import { authSelectors } from 'redux/auth';
 
 export default function PublickRoute({
   children,
+  redirectTo = '/',
   restricted = false,
   ...routeProps
 }) {
@@ -12,7 +13,7 @@ export default function PublickRoute({
 
   return (
     <Route {...routeProps}>
-      {shouldredirect ? <Redirect to="/contact" /> : children}
+      {shouldredirect ? <Redirect to={redirectTo} /> : children}
     </Route>
   );
 }

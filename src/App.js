@@ -1,7 +1,7 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { lazy, Suspense, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { authOperations } from 'redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { authOperations, authSelectors } from 'redux/auth';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,12 +11,6 @@ import AppBar from 'component/AppBar';
 import Loader from 'component/Loader';
 import PrivateRoute from 'component/PrivateRoute';
 import PublicRoute from 'component/PublicRoute';
-// import RegisterView from 'views/RegisterView';
-// import HomeView from 'views/HomeView';
-// import NotFoundView from 'views/NotFoundView';
-// import PhonebookView from 'views/PhonebookView';
-// import SignInView from 'views/LoginView';
-// import SignUpView from 'views/RegisterView';
 
 const HomeView = lazy(() =>
   import('views/HomeView' /* webpackChunkName: "HomeView" */),
@@ -36,48 +30,51 @@ const NotFoundView = lazy(() =>
 
 export default function App() {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(authSelectors.getInFetchingCurrent);
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
   return (
-    <Container>
-      <AppBar />
-      <Suspense fallback={<Loader />}>
-        <Switch>
-          <PublicRoute path="/" exact>
-            <HomeView />
-          </PublicRoute>
+    !isRefreshing && (
+      <Container>
+        <AppBar />
+        <Suspense fallback={<Loader />}>
+          <Switch>
+            <PublicRoute path="/" exact>
+              <HomeView />
+            </PublicRoute>
 
-          <PrivateRoute path="/contact" exact>
-            <PhonebookView />
-          </PrivateRoute>
+            <PrivateRoute path="/contact" exact redirectTo="/login">
+              <PhonebookView />
+            </PrivateRoute>
 
-          <PublicRoute path="/register" restricted>
-            <RegisterView />
-          </PublicRoute>
+            <PublicRoute path="/register" restricted>
+              <RegisterView />
+            </PublicRoute>
 
-          <PublicRoute path="/login" restricted>
-            <LoginView />
-          </PublicRoute>
+            <PublicRoute path="/login" restricted redirectTo="/contact">
+              <LoginView />
+            </PublicRoute>
 
-          <PublicRoute>
-            <NotFoundView />
-          </PublicRoute>
-        </Switch>
-      </Suspense>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </Container>
+            <PublicRoute>
+              <NotFoundView />
+            </PublicRoute>
+          </Switch>
+        </Suspense>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </Container>
+    )
   );
 }
