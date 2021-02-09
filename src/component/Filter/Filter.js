@@ -9,7 +9,8 @@ export default function Filter() {
   const onChange = event => dispatch(changeFilter(event.target.value));
   return (
     <label className={s.label}>
-      Find contacts by name
+      <span>Find contacts by name</span>
+
       <input type="text" value={value} onChange={onChange} />
     </label>
   );
