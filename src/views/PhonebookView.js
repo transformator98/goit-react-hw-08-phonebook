@@ -10,6 +10,7 @@ import { getLoading, getError, getVisible } from 'redux/phonebook';
 
 const PhonebookView = () => {
   const loading = useSelector(getLoading);
+
   const error = useSelector(getError);
   const visibleFilter = useSelector(getVisible);
 

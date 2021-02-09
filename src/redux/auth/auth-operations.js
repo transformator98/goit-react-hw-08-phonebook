@@ -18,17 +18,15 @@ const token = {
 const register = createAsyncThunk(
   'auth/register',
   async (options, thunkAPI) => {
-    const persistedToken = thunkAPI.getState().auth.error;
-
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue();
-    }
     try {
       const response = await axios.post('/users/signup', options);
       token.set(response.data.token);
       return response.data;
-    } catch (error) {
-      thunkAPI.rejectWithValue(error);
+    } catch (err) {
+      let error = err; // cast the error for access
+      if (!error.response) {
+        throw err;
+      }
       if (error.response.status === 400) {
         toast.error('User creation error! Please try again!');
       } else if (error.response.status === 500) {
@@ -36,6 +34,8 @@ const register = createAsyncThunk(
       } else {
         toast.error('Something went wrong!');
       }
+      // We got validation errors, let's return those so we can reference in our component and set form errors
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   },
 );
@@ -78,8 +78,20 @@ const fetchCurrentUser = createAsyncThunk(
       const { data } = await axios.get('/users/current');
 
       return data;
-    } catch (error) {
-      // error.message;
+    } catch (err) {
+      let error = err; // cast the error for access
+      if (!error.response) {
+        throw err;
+      }
+      if (error.response.status === 400) {
+        toast.error('User creation error! Please try again!');
+      } else if (error.response.status === 500) {
+        toast.error('Oops! Server error! Please try later!');
+      } else {
+        toast.error('Something went wrong!');
+      }
+      // We got validation errors, let's return those so we can reference in our component and set form errors
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   },
 );
