@@ -5,14 +5,14 @@ import ContactList from 'component/ContactList';
 import Loader from 'component/Loader';
 import Container from 'component/Wrapper';
 
-import { getLoading, getError, getVisible } from 'redux/phonebook';
-// import { getLoading, getVisible } from 'redux/phonebook';
+import { getLoading, getError } from 'redux/phonebook';
+// import { getLoading, getError, getVisible } from 'redux/phonebook';
 
 const PhonebookView = () => {
   const loading = useSelector(getLoading);
 
   const error = useSelector(getError);
-  const visibleFilter = useSelector(getVisible);
+  // const visibleFilter = useSelector(getVisible);
 
   return (
     <div>
@@ -22,13 +22,12 @@ const PhonebookView = () => {
         <Container>
           <h1>Phonebook</h1>
           <ContactsForm />
-
-          <Filter />
-          {loading && <Loader />}
-
-          <ContactList />
         </Container>
       )}
+      <Filter />
+      {loading && <Loader />}
+
+      <ContactList />
     </div>
   );
 };

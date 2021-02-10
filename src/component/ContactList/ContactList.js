@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import './ContactList.scss';
+import s from './ContactList.module.scss';
 import ContactListItem from './ContactListItem';
 
 import {
@@ -23,7 +23,7 @@ export default function ContactList() {
     <section>
       <h2>Contact</h2>
 
-      <ul className="list">
+      <ul className={s.list}>
         {contacts.map(({ id, name, number }) => (
           <ContactListItem
             id={id}

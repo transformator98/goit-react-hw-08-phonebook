@@ -1,8 +1,11 @@
 import { useState } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getItems, addContact } from 'redux/phonebook';
+import PhoneInput, {
+  formatPhoneNumberIntl,
+} from 'react-phone-number-input/input';
+// import 'react-phone-number-input/style.css';
 
 import s from './ContactsForm.module.css';
 
@@ -12,21 +15,28 @@ export default function ContactsForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
+  // const handleInputChange = event => {
+  //   const { name, value } = event.target;
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        return;
-    }
+  //   switch (name) {
+  //     case 'name':
+  //       setName(value);
+  //       break;
+  //     case 'number':
+  //       setNumber(value);
+  //       break;
+  //     default:
+  //       return;
+  //   }
+  // };
+
+  const handleNameChange = event => {
+    setName(event.target.value);
   };
-
+  const hendleNumberChange = event => {
+    const value = formatPhoneNumberIntl(String(event));
+    setNumber(value);
+  };
   const repeatContact = name => {
     const repeatName = name.toLowerCase();
     return items.find(contact => contact.name === repeatName);
@@ -69,18 +79,31 @@ export default function ContactsForm() {
           placeholder="Name contact"
           name="name"
           value={name}
-          onChange={handleInputChange}
+          // onChange={handleInputChange}
+          onChange={handleNameChange}
         />
       </label>
-      <label className={s.label}>
+      {/* <label className={s.label}>
         Number
         <input
           className={s.input}
-          type="number"
+          type="tel"
           name="number"
           placeholder="Number contact"
           value={number}
           onChange={handleInputChange}
+        />
+      </label> */}
+      <label className={s.label} htmlFor="formNumber">
+        Number
+        <PhoneInput
+          className={s.input}
+          defaultCountry="UA"
+          id="formNumber"
+          value={number}
+          name="number"
+          placeholder="Number contact"
+          onChange={hendleNumberChange}
         />
       </label>
 

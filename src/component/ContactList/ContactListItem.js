@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import './ContactList.scss';
+import s from './ContactList.module.scss';
 
 export default function ContactListItem({ id, name, number, onDeleteContact }) {
   return (
-    <li className="item" key={id}>
-      <p className="name">Name: {name}</p>
+    <li className={s.item} key={id}>
+      <p className={s.name}>Name: {name}</p>
 
-      <p className="number">Number: {number}</p>
+      <p className={s.number}>Number: {number}</p>
       <button
-        className="button"
+        className={s.button}
         type="button"
         onClick={() => onDeleteContact(id)}
       >
