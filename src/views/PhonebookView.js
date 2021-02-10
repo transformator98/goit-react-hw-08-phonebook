@@ -23,7 +23,7 @@ const PhonebookView = () => {
           <h1>Phonebook</h1>
           <ContactsForm />
 
-          {visibleFilter > 1 && <Filter />}
+          <Filter />
           {loading && <Loader />}
 
           <ContactList />
